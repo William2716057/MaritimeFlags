@@ -7,10 +7,26 @@ function generateRandomWord() {
     return words[randomIndex];
 }
 
-// Function to display the random word in the input box
+// Function to display the random word in the input box and corresponding flag images
 function displayRandomWord() {
     const randomWord = generateRandomWord();
     document.getElementById("userInput").setAttribute("data-word", randomWord);
+    displayWordImages(randomWord);
+}
+
+// Function to display images for each letter of the word
+function displayWordImages(word) {
+    const imagesContainer = document.getElementById("imagesContainer");
+    imagesContainer.innerHTML = ""; // Clear previous images
+
+    for (let i = 0; i < word.length; i++) {
+        const letter = word[i].toUpperCase();
+        const img = document.createElement("img");
+        img.src = `flags/${letter}.jpg`;
+        img.alt = letter;
+        img.classList.add("letter-image");
+        imagesContainer.appendChild(img);
+    }
 }
 
 //match user input to randomly chosen word
@@ -21,7 +37,7 @@ function checkGuess() {
     if (userInput === randomWord) {
         alert("Well done!");
     } else {
-        alert("Incorrect!");
+        alert("Try again!");
     }
 
     //choose new random word after attempt
